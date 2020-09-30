@@ -1,0 +1,57 @@
+﻿@model LR2ASP.Models.SportGoods[]
+@{
+
+    ViewBag.Title = "Sport Equipment";
+    Layout = "~/Views/ViewPage1.cshtml";
+}
+
+
+@if (@Model.Length > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>№ Товару</th>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Бренд</th>
+                <th>Кількість</th>
+                <th>Категорія</th>
+                <th>Розрахунок потенційного  доходу</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (LR2ASP.Models.SportGoods sg in Model)
+            {
+                <tr>
+                    <td>@sg.Good_Id</td>
+                    <td>@sg.Name</td>
+                    <td>@sg.Price</td>
+                    <td>@sg.Brand</td>
+                    <td>@sg.Count</td>
+                    <td>@sg.Category</td>
+
+                    <td>
+                        @(@sg.Price * @sg.Count)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <strong>Кількість всіх товарів:</strong>
+        <b>@Model.Sum(i => i.Count)</b>
+    </div>
+    <div>
+        <strong>Ціна за всі товари:</strong>
+        <b>@Model.Sum(i => i.Price * i.Count)</b>
+    </div>
+
+}
+
+else
+{
+    <h2>No equipment available</h2>
+}
